@@ -1,0 +1,12 @@
+/app/curso/Shared/bin/Debug/net6.0/curso.Shared.deps.json
+/app/curso/Shared/bin/Debug/net6.0/curso.Shared.dll
+/app/curso/Shared/bin/Debug/net6.0/curso.Shared.pdb
+/app/curso/Shared/obj/Debug/net6.0/curso.Shared.csproj.AssemblyReference.cache
+/app/curso/Shared/obj/Debug/net6.0/curso.Shared.GeneratedMSBuildEditorConfig.editorconfig
+/app/curso/Shared/obj/Debug/net6.0/curso.Shared.AssemblyInfoInputs.cache
+/app/curso/Shared/obj/Debug/net6.0/curso.Shared.AssemblyInfo.cs
+/app/curso/Shared/obj/Debug/net6.0/curso.Shared.csproj.CoreCompileInputs.cache
+/app/curso/Shared/obj/Debug/net6.0/curso.Shared.dll
+/app/curso/Shared/obj/Debug/net6.0/refint/curso.Shared.dll
+/app/curso/Shared/obj/Debug/net6.0/curso.Shared.pdb
+/app/curso/Shared/obj/Debug/net6.0/ref/curso.Shared.dll
