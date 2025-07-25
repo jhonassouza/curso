@@ -38,6 +38,7 @@ else
     </div>
     <br />
     <button type="submit" class="btn btn-primary">@btnText</button>
+    <button type="button" class="btn btn-danger" @onclick="DeleteHero">Deletar Herói</button>
 </EditForm>
 
 @code {
@@ -57,7 +58,8 @@ else
     {
         if (Id == null)
         {
-            //hero = await SuperHeroService.GetSingleSuperHero((int)Id);
+            hero.Comic = SuperHeroService.Comics[0];
+            hero.ComicId = hero.Comic.Id;
         }
         else
         {
@@ -67,6 +69,18 @@ else
 
     async Task HandleSubmit()
     {
+        if (Id == null)
+        {
+            await SuperHeroService.CreateSuperHero(hero);
+        }
+        else
+        {
+            await SuperHeroService.UpdateSuperHero(hero);
+        }
+    }
 
+    async Task DeleteHero()
+    {
+        await SuperHeroService.DeleteSuperHero(hero.Id);
     }
 }

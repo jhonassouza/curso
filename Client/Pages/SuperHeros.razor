@@ -5,31 +5,38 @@
 <PageTitle>Super Heros</PageTitle>
 
 <h3>Super Heros</h3>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Hero Name</th>
-            <th>Comic</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var hero in SuperHeroService.Heroes)
-        {
+@if (SuperHeroService.Heroes == null)
+{
+    <p>Carregando heróis...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@hero.FirstName</td>
-                <td>@hero.LastName</td>
-                <td>@hero.HeroName</td>
-                <td>@hero.Comic.Name</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="(() => ShowHero(hero.Id))"><i class="oi oi-pencil"></i></button>
-                </td>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Hero Name</th>
+                <th>Comic</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var hero in SuperHeroService.Heroes)
+            {
+                <tr>
+                    <td>@hero.FirstName</td>
+                    <td>@hero.LastName</td>
+                    <td>@hero.HeroName</td>
+                    <td>@(hero.Comic != null ? hero.Comic.Name : "Sem Comic")</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => ShowHero(hero.Id))"><i class="oi oi-pencil"></i></button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button class="btn btn-primary" @onclick="CreateSuperHero">Criar Novo Herói</button>
+}
 
 @code{
     protected override async Task OnInitializedAsync()
@@ -40,5 +47,10 @@
     void ShowHero(int id)
     {
         NavigationManager.NavigateTo($"hero/{id}");
+    }
+
+    void CreateSuperHero()
+    {
+        NavigationManager.NavigateTo("/hero");
     }
 }

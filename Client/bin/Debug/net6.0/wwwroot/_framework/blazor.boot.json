@@ -197,14 +197,14 @@
       "netstandard.dll": "sha256-D91viTBgwuzeuIOx1KgBYnoY0hl2IpcBu\/zr22Fu0BU=",
       "System.Private.CoreLib.dll": "sha256-5FbWgChEgLPlYByi8VsHTisbCpgMNSbf95JK5dVOs50=",
       "curso.Shared.dll": "sha256-i0IsBNKyoLn1KiRb0IdHakFUedTQUiwlGElZ5AHJe40=",
-      "curso.Client.dll": "sha256-9kZQbyZgXzOGBET\/UQitzUeEMcvJC0kroBRRwtws2Mg="
+      "curso.Client.dll": "sha256-NymXfvovW6GchwbVs\/o7D\/VoHx11ClK2eFAkLD6eZ14="
     },
     "extensions": null,
     "lazyAssembly": null,
     "libraryInitializers": null,
     "pdb": {
       "curso.Shared.pdb": "sha256-6n\/fGZBFDd7A81xcw1Sec23TzkVorPmwTVQWqMxbnx8=",
-      "curso.Client.pdb": "sha256-3z4Cp0W7CHlf07WHSOzbxV2gdzfPMrS7gjgyPpKrUaU="
+      "curso.Client.pdb": "sha256-yysoXi5B0lyZOPRnA3S1dNX\/vkLpc1X2JO2jVxq044I="
     },
     "runtime": {
       "dotnet.6.0.36.6jvg4a2njy.js": "sha256-pu7MO47B6So4jcW6iY2UI11lBZYz2EQnJKiYNsOpNJg=",

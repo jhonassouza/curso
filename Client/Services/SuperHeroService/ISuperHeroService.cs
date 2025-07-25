@@ -10,4 +10,7 @@ namespace curso.Client.Services.SuperHeroService;
         Task GetComics();
         Task GetSuperHeroes();
         Task<SuperHero> GetSingleSuperHero(int id);
+        Task CreateSuperHero(SuperHero hero);
+        Task UpdateSuperHero(SuperHero hero);
+        Task DeleteSuperHero(int id);
     }

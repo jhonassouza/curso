@@ -6,51 +6,106 @@ namespace curso.Server.Controllers
     [Route("api/[controller]")]
     public class SuperHeroController : ControllerBase
     {
-        public static List<Comic> Comics = new List<Comic>{
-            new Comic{Id = 1, Name = "Marvel"},
-            new Comic{Id = 2, Name = "DC"}
-        };
+        private readonly DataContext _context;
+        public SuperHeroController(DataContext context)
+        {
+            _context = context;
+        }
 
-        public static List<SuperHero> SuperHeroes = new List<SuperHero>{
-            new SuperHero {
-                Id = 1, 
-                FirstName = "Peter",
-                LastName = "Parker",
-                HeroName = "Spider-Man",
-                Comic = Comics[0],
-                ComicId = 1
-            },
-            new SuperHero {
-                Id = 2,
-                FirstName = "Bruce",
-                LastName = "Wayne",
-                HeroName = "Batman",
-                Comic = Comics[1],
-                ComicId = 2
-            }
-        };
-
+        // GET: api/SuperHero
         [HttpGet]
         public async Task<ActionResult<List<SuperHero>>> GetSuperHeroes()
         {
-            return Ok(SuperHeroes);
+            var heroes = await _context.SuperHeroes
+            .Include(h => h.Comic)
+            .ToListAsync();
+            if (heroes == null)
+            {
+                return NotFound("Nenhum herói encontrado.");
+            }
+            return Ok(heroes);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<SuperHero>> GetSingleHero(int id)
         {
-            var hero = SuperHeroes.FirstOrDefault(h => h.Id == id);
+            var hero = await _context.SuperHeroes
+            .Include(h => h.Comic)
+            .FirstOrDefaultAsync(h => h.Id == id);
             if (hero == null)
             {
                 return NotFound("Herói não enconstrado.");
             }
+            Console.WriteLine(hero.Comic.Name);
             return Ok(hero);
         }
 
         [HttpGet("comics")]
         public async Task<ActionResult<List<Comic>>> GetComics()
         {
-            return Ok(Comics);
+            var comics = await _context.Comics.ToListAsync();
+            if (comics == null)
+            {
+                return NotFound("Nenhuma história em quadrinhos encontrada.");
+            }
+            return Ok(comics);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<List<SuperHero>>> CreateSuperHero(SuperHero hero)
+        {
+            hero.Comic = null;
+            _context.SuperHeroes.Add(hero);
+            await _context.SaveChangesAsync();
+
+            return Ok(await GetDbHeroes());
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<SuperHero>>> UpdateSuperHero(SuperHero hero, int id)
+        {
+            var dbHero = await _context.SuperHeroes
+            .Include(h => h.Comic)
+            .FirstOrDefaultAsync(h => h.Id == id);
+
+            if (dbHero == null)
+            {
+                return NotFound("Herói não encontrado.");
+            }
+
+            dbHero.FirstName = hero.FirstName;
+            dbHero.LastName = hero.LastName;
+            dbHero.HeroName = hero.HeroName;
+            dbHero.ComicId = hero.ComicId;
+
+            await _context.SaveChangesAsync();
+            
+            return Ok(await GetDbHeroes());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<SuperHero>>> DeleteSuperHero(int id)
+        {
+            var dbHero = await _context.SuperHeroes
+            .Include(h => h.Comic)
+            .FirstOrDefaultAsync(h => h.Id == id);
+            if (dbHero == null)
+            {
+                return NotFound("Herói não encontrado.");
+            }
+            else
+            {
+                _context.SuperHeroes.Remove(dbHero);
+                await _context.SaveChangesAsync();
+            }
+            return Ok(await GetDbHeroes());
+        }
+
+        private async Task<List<SuperHero>> GetDbHeroes()
+        {
+            return await _context.SuperHeroes
+            .Include(h => h.Comic)
+            .ToListAsync();
         }
     }
 }
